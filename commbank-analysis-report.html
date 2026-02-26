@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommBank Website Analysis Report</title>
+<style>
+  @page { size: A4; margin: 20mm 15mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #1a1a1a;
+    padding: 40px;
+    background: #fff;
+  }
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    text-align: center;
+  }
+  .cover h1 {
+    font-size: 32px;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .cover .subtitle {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+  }
+  .cover .meta {
+    font-size: 13px;
+    color: #777;
+    line-height: 2;
+  }
+  .cover .logo-bar {
+    margin-bottom: 40px;
+    padding: 15px 30px;
+    background: #FFC72C;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 1px;
+  }
+  h1 { font-size: 22px; color: #000; margin: 30px 0 15px; border-bottom: 3px solid #FFC72C; padding-bottom: 8px; }
+  h2 { font-size: 16px; color: #222; margin: 20px 0 10px; }
+  h3 { font-size: 13px; color: #333; margin: 15px 0 8px; }
+  p { margin: 6px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 20px;
+    font-size: 10px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #2c2c2c;
+    color: #fff;
+    font-weight: 600;
+    font-size: 10px;
+  }
+  tr:nth-child(even) { background: #f8f8f8; }
+  tr:hover { background: #f0f0f0; }
+  .badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .badge-low { background: #28a745; }
+  .badge-medium { background: #fd7e14; }
+  .badge-high { background: #dc3545; }
+  .badge-vhigh { background: #6f42c1; }
+  .summary-box {
+    background: #f4f4f4;
+    border-left: 4px solid #FFC72C;
+    padding: 12px 16px;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .summary-box strong { color: #000; }
+  .total-row { background: #2c2c2c !important; color: #fff; font-weight: 700; }
+  .total-row td { color: #fff; border-color: #444; }
+  .page-break { page-break-before: always; }
+  .toc { margin: 20px 0; }
+  .toc a { color: #1a1a1a; text-decoration: none; }
+  .toc li { margin: 8px 0; font-size: 13px; }
+  .screenshot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 15px 0;
+  }
+  .screenshot-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .screenshot-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+  .screenshot-item .caption {
+    padding: 6px 10px;
+    background: #f4f4f4;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .footnote {
+    font-size: 9px;
+    color: #888;
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="logo-bar">COMMBANK.COM.AU</div>
+  <h1>Website Analysis Report</h1>
+  <p class="subtitle">Edge Delivery Services Migration Assessment</p>
+  <div class="meta">
+    <p>Commonwealth Bank of Australia</p>
+    <p>https://www.commbank.com.au/</p>
+    <p>Report Date: February 2025</p>
+    <p>~3,244 Pages | 11 Templates | 24 Blocks | 12 Integrations</p>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<h1>Table of Contents</h1>
+<ol class="toc">
+  <li><a href="#templates">Templates Inventory</a></li>
+  <li><a href="#blocks">Blocks / Components Catalog</a></li>
+  <li><a href="#pages">Page Counts by Template</a></li>
+  <li><a href="#integrations">Integrations Analysis</a></li>
+  <li><a href="#complex">Complex Use Cases &amp; Observations</a></li>
+  <li><a href="#estimates">Migration Estimates</a></li>
+  <li><a href="#screenshots">Screenshots Reference</a></li>
+</ol>
+
+<div class="summary-box">
+  <strong>Executive Summary:</strong> The CommBank website comprises approximately 3,244 pages across 11 distinct template types, utilizing 24 reusable block components and 12 third-party integrations. An estimated 81% of pages are candidates for automated migration. The primary complexity drivers are financial calculators (33 pages), dynamic rate data management, and the Ceba AI virtual assistant. Total estimated migration effort: 282–376 person-days.
+</div>
+
+<!-- SECTION 1: TEMPLATES -->
+<h1 id="templates" class="page-break">1. Templates Inventory</h1>
+<p>11 unique page templates identified across the site:</p>
+<table>
+  <thead>
+    <tr><th>#</th><th>Template Name</th><th>Complexity</th><th>Description</th><th>Reference URL</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Homepage</strong></td><td><span class="badge badge-high">High</span></td><td>Hero banner with rotating promos, product/service grid, promotional cards, article recommendations, support quick links, full footer</td><td>commbank.com.au/</td></tr>
+    <tr><td>2</td><td><strong>Category / Landing</strong></td><td><span class="badge badge-high">Med-High</span></td><td>Hero with category intro, rate display tiles, product card grid, article recommendations, FAQ accordion, CTA banners</td><td>commbank.com.au/home-loans</td></tr>
+    <tr><td>3</td><td><strong>Product Detail</strong></td><td><span class="badge badge-high">High</span></td><td>Hero with offer/CTA, sticky sub-nav, expandable accordion sections (At a Glance, Rates &amp; Fees, FAQs), related products, guidance articles</td><td>commbank.com.au/credit-cards/low-fee</td></tr>
+    <tr><td>4</td><td><strong>Support Hub</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Search bar, popular search tags, categorized help link grid with icons, FAQ sections</td><td>commbank.com.au/support</td></tr>
+    <tr><td>5</td><td><strong>Article / Blog</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Breadcrumbs, hero image, byline + date, social share buttons, rich body content, related articles, tags, disclaimer</td><td>commbank.com.au/articles/newsroom/...</td></tr>
+    <tr><td>6</td><td><strong>Content Hub / Magazine</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Curated content feed with featured article hero, category filters, article card grid, load-more pagination</td><td>commbank.com.au/brighter</td></tr>
+    <tr><td>7</td><td><strong>Calculator / Tool</strong></td><td><span class="badge badge-vhigh">Very High</span></td><td>Interactive financial calculators with form inputs, sliders, real-time computation, chart visualizations, conditional logic</td><td>commbank.com.au/home-buying/...</td></tr>
+    <tr><td>8</td><td><strong>Comparison Page</strong></td><td><span class="badge badge-high">High</span></td><td>Multi-product comparison tables with feature rows, expandable details, highlight badges, CTA buttons per product</td><td>commbank.com.au/credit-cards/compare-...</td></tr>
+    <tr><td>9</td><td><strong>Careers / Recruitment</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Employer brand hero, culture sections, job search integration (Workday), benefits cards, testimonials</td><td>commbank.com.au/about-us/careers</td></tr>
+    <tr><td>10</td><td><strong>Investor Relations</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Financial results hero, document downloads, performance data sections, event calendar, regulatory announcements</td><td>commbank.com.au/about-us/investors</td></tr>
+    <tr><td>11</td><td><strong>Legal / Compliance</strong></td><td><span class="badge badge-low">Low</span></td><td>Dense text-based pages, terms &amp; conditions, disclosure tables, regulatory content, minimal interactive elements</td><td>commbank.com.au/important-info/...</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 2: BLOCKS -->
+<h1 id="blocks" class="page-break">2. Blocks / Components Catalog</h1>
+
+<h2>Global Components</h2>
+<table>
+  <thead>
+    <tr><th>#</th><th>Block Name</th><th>Complexity</th><th>Behavior</th><th>Reference</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Global Header / Navigation</strong></td><td><span class="badge badge-high">High</span></td><td>Mega-menu with hamburger toggle on mobile, logo, search icon, login button, multi-level dropdowns</td><td>All pages</td></tr>
+    <tr><td>2</td><td><strong>Global Footer</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Multi-column link lists, legal disclaimers, social media icons, ABN/regulatory info, app download links</td><td>All pages</td></tr>
+    <tr><td>3</td><td><strong>Breadcrumbs</strong></td><td><span class="badge badge-low">Low</span></td><td>Hierarchical navigation trail with linked parent pages</td><td>Article, Product, Support</td></tr>
+    <tr><td>4</td><td><strong>Disclaimer / Legal Block</strong></td><td><span class="badge badge-low">Low</span></td><td>Collapsible or static legal text, important information notices</td><td>All pages</td></tr>
+  </tbody>
+</table>
+
+<h2>Hero Blocks</h2>
+<table>
+  <thead>
+    <tr><th>#</th><th>Block Name</th><th>Complexity</th><th>Behavior</th><th>Variants</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>5</td><td><strong>Hero Banner</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Full-width hero with heading, subheading, CTA button(s), background image or gradient</td><td>Homepage (large with promo), Category (with rate badge), Product (with offer callout), Article (with image + byline)</td></tr>
+  </tbody>
+</table>
+
+<h2>Content Blocks</h2>
+<table>
+  <thead>
+    <tr><th>#</th><th>Block Name</th><th>Complexity</th><th>Behavior</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>6</td><td><strong>Product Card Grid</strong></td><td><span class="badge badge-medium">Medium</span></td><td>2-4 column card layout with icon/image, title, description, CTA link. Responsive to single column on mobile</td></tr>
+    <tr><td>7</td><td><strong>Rate Display Tile</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Compact cards showing interest rates (variable/fixed), comparison rates, and "Apply now" CTA</td></tr>
+    <tr><td>8</td><td><strong>Article Card</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Image thumbnail, category tag, title, excerpt, read-more link. Used in recommendation sections</td></tr>
+    <tr><td>9</td><td><strong>Promotional Banner</strong></td><td><span class="badge badge-low">Low-Med</span></td><td>Full/half-width banner with image, headline, body text, CTA button. Background color variants</td></tr>
+    <tr><td>10</td><td><strong>Accordion / FAQ</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Expandable/collapsible sections with question headers and rich-text answer bodies</td></tr>
+    <tr><td>11</td><td><strong>Icon Link Grid</strong></td><td><span class="badge badge-low">Low</span></td><td>Grid of icon + label pairs linking to help topics or product categories</td></tr>
+    <tr><td>12</td><td><strong>Search Bar</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Prominent search input with autocomplete/suggestions, popular search tags below</td></tr>
+    <tr><td>13</td><td><strong>CTA Block</strong></td><td><span class="badge badge-low">Low</span></td><td>Simple call-to-action with heading, optional body text, and button(s). Color/style variants</td></tr>
+    <tr><td>14</td><td><strong>Sticky Sub-Navigation</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Horizontal anchor-link bar that sticks on scroll, highlighting active section</td></tr>
+    <tr><td>15</td><td><strong>Comparison Table</strong></td><td><span class="badge badge-high">High</span></td><td>Multi-column product comparison with feature rows, checkmarks, values, per-product CTAs</td></tr>
+    <tr><td>16</td><td><strong>Social Share Bar</strong></td><td><span class="badge badge-low">Low</span></td><td>Row of social media share buttons (Facebook, X/Twitter, LinkedIn, email)</td></tr>
+    <tr><td>17</td><td><strong>Related Products Carousel</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Horizontal scrollable card strip showing related products with CTAs</td></tr>
+    <tr><td>18</td><td><strong>Tag / Category List</strong></td><td><span class="badge badge-low">Low</span></td><td>Horizontal tag pills linking to category archives</td></tr>
+    <tr><td>19</td><td><strong>At a Glance Section</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Structured product feature summary with key-value pairs and icons</td></tr>
+    <tr><td>20</td><td><strong>Content Cards (Brighter)</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Magazine-style content cards with large images, category labels, titles, dates</td></tr>
+    <tr><td>21</td><td><strong>Video Embed</strong></td><td><span class="badge badge-low">Low</span></td><td>YouTube or self-hosted video player with thumbnail preview</td></tr>
+    <tr><td>22</td><td><strong>Table Block</strong></td><td><span class="badge badge-low">Low-Med</span></td><td>Responsive data tables for rates, fees, and comparison data</td></tr>
+    <tr><td>23</td><td><strong>Live Chat Widget</strong></td><td><span class="badge badge-high">High</span></td><td>Floating chat button triggering Ceba AI assistant / live agent with session state</td></tr>
+    <tr><td>24</td><td><strong>Calculator Widget</strong></td><td><span class="badge badge-vhigh">Very High</span></td><td>Interactive form with inputs, sliders, real-time computation, charts, conditional logic</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 3: PAGE COUNTS -->
+<h1 id="pages" class="page-break">3. Page Counts by Template</h1>
+<table>
+  <thead>
+    <tr><th>Template</th><th>Est. Page Count</th><th>Auto-Migratable</th><th>Manual Migration</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Homepage</td><td>1</td><td>0</td><td>1</td><td>Complex layout, dynamic content</td></tr>
+    <tr><td>Category / Landing</td><td>~80</td><td>~50</td><td>~30</td><td>Product category hubs, some with dynamic rates</td></tr>
+    <tr><td>Product Detail</td><td>~150</td><td>~80</td><td>~70</td><td>Varying complexity, some with embedded calculators</td></tr>
+    <tr><td>Support Hub</td><td>~560</td><td>~400</td><td>~160</td><td>Large volume from support sitemap</td></tr>
+    <tr><td>Article / Blog</td><td>~1,900</td><td>~1,700</td><td>~200</td><td>Newsroom (~870), articles (~900+), consumer-finance, business</td></tr>
+    <tr><td>Content Hub / Magazine</td><td>~15</td><td>~5</td><td>~10</td><td>Brighter hub, CommBank App features</td></tr>
+    <tr><td>Calculator / Tool</td><td>~33</td><td>0</td><td>~33</td><td>All require custom JS rebuild</td></tr>
+    <tr><td>Comparison Page</td><td>~20</td><td>~5</td><td>~15</td><td>Complex table layouts, dynamic data</td></tr>
+    <tr><td>Careers / Recruitment</td><td>~50</td><td>~20</td><td>~30</td><td>Workday integration, dynamic job listings</td></tr>
+    <tr><td>Investor Relations</td><td>~35</td><td>~15</td><td>~20</td><td>Document downloads, financial data</td></tr>
+    <tr><td>Legal / Compliance</td><td>~400</td><td>~350</td><td>~50</td><td>Target market determinations, T&amp;Cs</td></tr>
+    <tr class="total-row"><td><strong>TOTAL</strong></td><td><strong>~3,244</strong></td><td><strong>~2,625 (81%)</strong></td><td><strong>~619 (19%)</strong></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="summary-box">
+  <strong>Sitemap Breakdown:</strong> Main sitemap: ~1,650 URLs | Articles sitemap: ~1,002 URLs | Support sitemap: 559 URLs | Tools/Calculators sitemap: 33 URLs
+</div>
+
+<!-- SECTION 4: INTEGRATIONS -->
+<h1 id="integrations" class="page-break">4. Integrations Analysis</h1>
+<table>
+  <thead>
+    <tr><th>#</th><th>Integration</th><th>Type</th><th>Complexity</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Adobe Analytics / Data Layer</strong></td><td>Analytics</td><td><span class="badge badge-high">High</span></td><td>Custom digitalData object with page info, user state, event tracking. Extensive data layer.</td></tr>
+    <tr><td>2</td><td><strong>Google Floodlight (DCM)</strong></td><td>Ad Tracking</td><td><span class="badge badge-medium">Medium</span></td><td>Conversion tracking pixels for Google Campaign Manager on key conversion events.</td></tr>
+    <tr><td>3</td><td><strong>Microsoft Dynamics 365 / Ceba</strong></td><td>Customer Service</td><td><span class="badge badge-vhigh">Very High</span></td><td>AI virtual assistant "Ceba" with live agent escalation, persistent chat widget, session management.</td></tr>
+    <tr><td>4</td><td><strong>Workday</strong></td><td>Recruitment</td><td><span class="badge badge-high">High</span></td><td>Job search and application system embedded in careers pages.</td></tr>
+    <tr><td>5</td><td><strong>Avature</strong></td><td>Talent Community</td><td><span class="badge badge-medium">Medium</span></td><td>Talent community signup and management for career interest registration.</td></tr>
+    <tr><td>6</td><td><strong>YouTube</strong></td><td>Video</td><td><span class="badge badge-low">Low</span></td><td>Embedded video players for promotional and educational content.</td></tr>
+    <tr><td>7</td><td><strong>Hopper Travel</strong></td><td>Booking Engine</td><td><span class="badge badge-high">High</span></td><td>Integrated travel booking widget for CommBank travel rewards.</td></tr>
+    <tr><td>8</td><td><strong>Mastercard Priceless</strong></td><td>Rewards / Offers</td><td><span class="badge badge-medium">Medium</span></td><td>Integration with Mastercard rewards platform for cardholder benefits.</td></tr>
+    <tr><td>9</td><td><strong>NetBank / App Auth</strong></td><td>Authentication</td><td><span class="badge badge-vhigh">Very High</span></td><td>SSO login linking to NetBank online banking, session management, secure token exchange.</td></tr>
+    <tr><td>10</td><td><strong>Social Media Sharing</strong></td><td>Social</td><td><span class="badge badge-low">Low</span></td><td>Share functionality for Facebook, X/Twitter, LinkedIn, email on articles.</td></tr>
+    <tr><td>11</td><td><strong>Apple App Store / Google Play</strong></td><td>App Distribution</td><td><span class="badge badge-low">Low</span></td><td>App download deep links in footer and promotional sections.</td></tr>
+    <tr><td>12</td><td><strong>PDF Document Management</strong></td><td>Document</td><td><span class="badge badge-medium">Medium</span></td><td>Dynamic PDF generation/download for disclosures, T&amp;Cs, financial reports.</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 5: COMPLEX USE CASES -->
+<h1 id="complex" class="page-break">5. Complex Use Cases &amp; Observations</h1>
+<table>
+  <thead>
+    <tr><th>#</th><th>Use Case</th><th>Complexity</th><th>Description</th><th>Est. Instances</th><th>Impact</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Financial Calculators</strong></td><td><span class="badge badge-vhigh">Very High</span></td><td>Borrowing power, repayment, stamp duty, budget calculators with real-time computation, charts, conditional fields</td><td>~33 pages</td><td>Cannot be auto-migrated; require custom JS blocks</td></tr>
+    <tr><td>2</td><td><strong>Dynamic Rate Display</strong></td><td><span class="badge badge-high">High</span></td><td>Interest rates dynamically fetched/updated across product and landing pages</td><td>~150+ instances</td><td>Needs centralized rate data source</td></tr>
+    <tr><td>3</td><td><strong>Ceba Virtual Assistant</strong></td><td><span class="badge badge-vhigh">Very High</span></td><td>AI chatbot with NLP, auth-aware responses, transaction capabilities, live agent handoff</td><td>Site-wide</td><td>Third-party widget; careful integration testing</td></tr>
+    <tr><td>4</td><td><strong>Product Comparison Engine</strong></td><td><span class="badge badge-high">High</span></td><td>Multi-product comparison with dynamic filter/sort, feature highlighting, expandable rows</td><td>~20 pages</td><td>Requires custom block with significant JS</td></tr>
+    <tr><td>5</td><td><strong>Auth-Gated Content</strong></td><td><span class="badge badge-high">High</span></td><td>NetBank login integration, session-dependent content, personalized recommendations</td><td>Multiple</td><td>Out of scope for content migration</td></tr>
+    <tr><td>6</td><td><strong>Conditional Content Display</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Sections show/hide based on user segment, location, or interaction state</td><td>~50+ pages</td><td>May require personalization approach</td></tr>
+    <tr><td>7</td><td><strong>Multi-Step Application Forms</strong></td><td><span class="badge badge-vhigh">Very High</span></td><td>Credit card, loan, account applications with multi-step forms, validation, document upload</td><td>~30+ entry points</td><td>Remain as separate system</td></tr>
+    <tr><td>8</td><td><strong>Mega Navigation</strong></td><td><span class="badge badge-high">High</span></td><td>Multi-level nav with product categories, featured content, promotional slots, responsive</td><td>1 (site-wide)</td><td>Needs custom nav block</td></tr>
+    <tr><td>9</td><td><strong>Sticky / Scrollspy Nav</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Scroll-position-aware nav highlighting active section with anchor jumps</td><td>~150 pages</td><td>Custom block needed</td></tr>
+    <tr><td>10</td><td><strong>SEO &amp; Structured Data</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Rich schema markup (Organization, Product, FAQ, Article, BreadcrumbList)</td><td>~3,244 pages</td><td>Needs metadata strategy</td></tr>
+    <tr><td>11</td><td><strong>Responsive Image Strategy</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Multiple breakpoints, lazy loading, WebP/AVIF, art direction</td><td>All pages</td><td>EDS handles natively; source images need sizing</td></tr>
+    <tr><td>12</td><td><strong>PDF / Document Library</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Investor reports, disclosures, regulatory docs as downloadable PDFs</td><td>~100+ docs</td><td>Need document management approach</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 6: MIGRATION ESTIMATES -->
+<h1 id="estimates" class="page-break">6. Migration Estimates</h1>
+
+<h2>Effort Breakdown by Phase</h2>
+<table>
+  <thead>
+    <tr><th>Phase</th><th>Scope</th><th>Est. Person-Days</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="4" style="background:#eee;font-weight:700;">Phase 1: Foundation</td></tr>
+    <tr><td>Design system extraction</td><td>Global styles, tokens, typography, colors</td><td>8–10</td><td>CSS custom properties setup</td></tr>
+    <tr><td>Navigation setup</td><td>Header, footer, mega-nav</td><td>10–12</td><td>Complex mega-nav is significant effort</td></tr>
+    <tr><td>Global components</td><td>Breadcrumbs, disclaimers, social share, tags</td><td>3–5</td><td>Relatively straightforward</td></tr>
+    <tr><td colspan="4" style="background:#eee;font-weight:700;">Phase 2: Block Development</td></tr>
+    <tr><td>Hero block (all variants)</td><td>4 variants</td><td>5–7</td><td>Multiple layout variants</td></tr>
+    <tr><td>Product card grid</td><td>With rate display variant</td><td>4–5</td><td></td></tr>
+    <tr><td>Article card</td><td>Standard + featured variants</td><td>3–4</td><td></td></tr>
+    <tr><td>Accordion / FAQ</td><td>Expandable sections</td><td>3–4</td><td></td></tr>
+    <tr><td>Comparison table</td><td>Dynamic multi-product</td><td>8–10</td><td>Complex JS logic</td></tr>
+    <tr><td>Sticky sub-navigation</td><td>Scrollspy behavior</td><td>4–5</td><td></td></tr>
+    <tr><td>Calculator widgets</td><td>33 unique calculators</td><td>60–80</td><td>Highest effort item</td></tr>
+    <tr><td>Remaining blocks (~12)</td><td>CTA, banners, icon grids, video, etc.</td><td>15–20</td><td></td></tr>
+    <tr><td colspan="4" style="background:#eee;font-weight:700;">Phase 3: Automated Migration</td></tr>
+    <tr><td>Template mapping &amp; scripting</td><td>Build migration scripts per template</td><td>15–20</td><td>Script development and testing</td></tr>
+    <tr><td>Auto-migration execution</td><td>~2,625 pages</td><td>10–15</td><td>Batch processing, validation, fixes</td></tr>
+    <tr><td colspan="4" style="background:#eee;font-weight:700;">Phase 4: Manual Migration</td></tr>
+    <tr><td>Complex pages</td><td>~619 pages requiring manual work</td><td>60–80</td><td>Varies by page complexity</td></tr>
+    <tr><td colspan="4" style="background:#eee;font-weight:700;">Phase 5: Integration</td></tr>
+    <tr><td>Analytics reimplementation</td><td>Adobe Analytics data layer</td><td>8–10</td><td></td></tr>
+    <tr><td>Chat widget integration</td><td>Ceba / Dynamics 365</td><td>5–7</td><td>Embed + testing</td></tr>
+    <tr><td>Third-party widgets</td><td>Workday, Hopper, Mastercard</td><td>8–10</td><td></td></tr>
+    <tr><td colspan="4" style="background:#eee;font-weight:700;">Phase 6: QA &amp; Testing</td></tr>
+    <tr><td>Visual regression testing</td><td>All templates + key pages</td><td>15–20</td><td></td></tr>
+    <tr><td>Functional testing</td><td>Calculators, forms, interactions</td><td>10–15</td><td></td></tr>
+    <tr><td>Cross-browser / device</td><td>Desktop, tablet, mobile</td><td>8–10</td><td></td></tr>
+    <tr><td>Performance &amp; accessibility</td><td>Lighthouse, WCAG compliance</td><td>5–7</td><td></td></tr>
+    <tr><td>UAT &amp; bug fixes</td><td>Stakeholder review cycles</td><td>15–20</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2>Summary Totals</h2>
+<table>
+  <thead>
+    <tr><th>Category</th><th>Est. Person-Days</th><th>% of Total</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Foundation &amp; Design System</td><td>21–27</td><td>7%</td></tr>
+    <tr><td>Block Development</td><td>102–135</td><td>35%</td></tr>
+    <tr><td>Automated Migration</td><td>25–35</td><td>9%</td></tr>
+    <tr><td>Manual Migration</td><td>60–80</td><td>21%</td></tr>
+    <tr><td>Integrations</td><td>21–27</td><td>7%</td></tr>
+    <tr><td>QA &amp; Testing</td><td>53–72</td><td>21%</td></tr>
+    <tr class="total-row"><td><strong>TOTAL</strong></td><td><strong>282–376 person-days</strong></td><td><strong>100%</strong></td></tr>
+  </tbody>
+</table>
+
+<h2>Key Assumptions &amp; Risks</h2>
+<table>
+  <thead>
+    <tr><th>Factor</th><th>Detail</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Largest effort driver</strong></td><td>Financial calculators (~33 pages) account for ~20% of block development effort</td></tr>
+    <tr><td><strong>Highest risk</strong></td><td>Dynamic rate data — needs centralized approach for serving current rates</td></tr>
+    <tr><td><strong>Out of scope (recommended)</strong></td><td>NetBank authentication flows, multi-step application forms — remain as separate systems</td></tr>
+    <tr><td><strong>Auto-migration success rate</strong></td><td>81% of pages (primarily articles, support, legal)</td></tr>
+    <tr><td><strong>Content freeze</strong></td><td>Assumes content freeze period; ongoing changes add coordination overhead</td></tr>
+    <tr><td><strong>Team size: 4-person</strong></td><td>Estimated calendar duration: 4–6 months</td></tr>
+    <tr><td><strong>Team size: 6-8 person</strong></td><td>Estimated calendar duration: 3–4 months</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 7: SCREENSHOTS -->
+<h1 id="screenshots" class="page-break">7. Screenshots Reference</h1>
+<div class="screenshot-grid">
+  <div class="screenshot-item">
+    <img src="commbank-homepage-full.png" alt="Homepage">
+    <div class="caption">Homepage — Hero, product grid, promos, articles, footer</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="commbank-homepage-hero.png" alt="Header Navigation">
+    <div class="caption">Header / Navigation pattern</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="commbank-homeloans.png" alt="Home Loans Landing">
+    <div class="caption">Home Loans — Category/Landing template with rate tiles</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="commbank-creditcard-product.png" alt="Credit Card Product">
+    <div class="caption">Credit Card — Product detail with sticky nav, accordions</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="commbank-support.png" alt="Support Hub">
+    <div class="caption">Support Hub — Search bar, icon grid</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="commbank-article.png" alt="Article Page">
+    <div class="caption">Article — Social share, related content, tags</div>
+  </div>
+</div>
+
+<div class="footnote">
+  <p>This report was generated as part of an Edge Delivery Services migration assessment for commbank.com.au. All page counts are estimates based on sitemap analysis conducted in February 2025. Actual page counts may vary. Screenshots are point-in-time captures and may not reflect the current state of the website.</p>
+</div>
+
+</body>
+</html>
