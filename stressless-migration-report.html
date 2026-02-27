@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stressless.com — Edge Delivery Services Migration Assessment</title>
+<style>
+  @page { margin: 1.5cm 2cm; size: A4; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; color: #1a1a1a; line-height: 1.55; font-size: 10.5pt; background: #fff; }
+
+  /* Cover page */
+  .cover { page-break-after: always; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 90vh; text-align: center; background: linear-gradient(145deg, #1a2744 0%, #2c3e6b 100%); color: #fff; padding: 60px; margin: -1.5cm -2cm 0 -2cm; }
+  .cover h1 { font-size: 32pt; font-weight: 300; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .cover h1 strong { font-weight: 700; }
+  .cover .subtitle { font-size: 16pt; color: #8aa3d4; margin-bottom: 40px; font-weight: 300; }
+  .cover .meta { font-size: 10pt; color: #7a93c0; margin-top: 30px; }
+  .cover .logo-text { font-size: 14pt; font-weight: 700; color: #fff; background: #1a365d; padding: 10px 28px; border-radius: 40px; margin-bottom: 40px; letter-spacing: 1px; }
+  .cover .divider { width: 60px; height: 3px; background: #4a7fd4; margin: 20px auto; }
+
+  /* TOC */
+  .toc { page-break-after: always; padding-top: 30px; }
+  .toc h2 { font-size: 18pt; color: #1a2744; margin-bottom: 20px; border-bottom: 3px solid #1a2744; padding-bottom: 8px; }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { padding: 10px 0; border-bottom: 1px solid #e8e8e8; display: flex; justify-content: space-between; }
+  .toc li a { color: #2c5aa0; text-decoration: none; font-size: 12pt; }
+  .toc li .page-ref { color: #888; font-size: 11pt; }
+
+  /* Section headings */
+  h1.section-title { font-size: 20pt; color: #1a2744; margin: 30px 0 15px 0; padding-bottom: 8px; border-bottom: 3px solid #2c5aa0; page-break-before: always; }
+  h1.section-title:first-of-type { page-break-before: auto; }
+  h2 { font-size: 14pt; color: #2c3e6b; margin: 22px 0 10px 0; }
+  h3 { font-size: 12pt; color: #3a5a8c; margin: 15px 0 8px 0; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 20px 0; font-size: 9pt; }
+  thead th { background: #1a2744; color: #fff; padding: 8px 6px; text-align: left; font-weight: 600; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  tbody td { padding: 6px; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  tbody tr:nth-child(even) { background: #f7f9fc; }
+  tbody tr:hover { background: #eef3fa; }
+  tbody tr.total-row { background: #1a2744 !important; color: #fff; font-weight: 700; }
+  tbody tr.total-row td { border-bottom: none; }
+
+  /* Badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 8pt; font-weight: 600; }
+  .badge-low { background: #d4edda; color: #155724; }
+  .badge-medium { background: #fff3cd; color: #856404; }
+  .badge-high { background: #f8d7da; color: #721c24; }
+  .badge-vhigh { background: #721c24; color: #fff; }
+
+  /* Summary boxes */
+  .summary-box { background: #f0f4fa; border-left: 4px solid #2c5aa0; padding: 12px 16px; margin: 15px 0; border-radius: 0 4px 4px 0; }
+  .summary-box strong { color: #1a2744; }
+
+  .highlight-box { background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px 16px; margin: 15px 0; border-radius: 0 4px 4px 0; }
+
+  .key-stat { display: inline-block; text-align: center; background: #f0f4fa; padding: 12px 20px; border-radius: 6px; margin: 4px; }
+  .key-stat .number { font-size: 22pt; font-weight: 700; color: #2c5aa0; display: block; }
+  .key-stat .label { font-size: 8pt; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .stats-row { display: flex; gap: 10px; margin: 15px 0; flex-wrap: wrap; justify-content: center; }
+
+  /* Screenshots */
+  .screenshot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+  .screenshot-item { border: 1px solid #ddd; border-radius: 4px; overflow: hidden; }
+  .screenshot-item img { width: 100%; height: auto; display: block; }
+  .screenshot-item .caption { padding: 6px 8px; font-size: 8pt; color: #555; background: #f9f9f9; text-align: center; }
+
+  /* Lists */
+  ul, ol { margin: 8px 0 8px 20px; }
+  li { margin: 3px 0; }
+
+  p { margin: 6px 0; }
+
+  code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 9pt; font-family: 'Consolas', monospace; }
+
+  .footnote { font-size: 8pt; color: #888; margin-top: 30px; padding-top: 10px; border-top: 1px solid #ddd; }
+
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="logo-text">STRESSLESS</div>
+  <h1>Edge Delivery Services<br><strong>Migration Assessment</strong></h1>
+  <div class="divider"></div>
+  <div class="subtitle">www.stressless.com</div>
+  <div class="meta">
+    Prepared: February 2026<br>
+    Scope: Full site analysis including 31 country/language variants<br>
+    Platform: Episerver/Optimizely CMS + SAP Commerce Cloud (Hybris)
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ul>
+    <li><a href="#executive-summary">Executive Summary</a></li>
+    <li><a href="#templates">1. Templates Inventory</a></li>
+    <li><a href="#blocks">2. Blocks / Components Catalog</a></li>
+    <li><a href="#pages">3. Page Counts by Template</a></li>
+    <li><a href="#locales">4. Country / Language Variants</a></li>
+    <li><a href="#integrations">5. Integrations Analysis</a></li>
+    <li><a href="#complex">6. Complex Use Cases &amp; Observations</a></li>
+    <li><a href="#estimates">7. Migration Estimates</a></li>
+    <li><a href="#screenshots">8. Screenshots Reference</a></li>
+  </ul>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<h1 id="executive-summary" class="section-title" style="page-break-before: auto;">Executive Summary</h1>
+
+<div class="stats-row">
+  <div class="key-stat"><span class="number">~681</span><span class="label">Pages (EN locale)</span></div>
+  <div class="key-stat"><span class="number">31</span><span class="label">Locales</span></div>
+  <div class="key-stat"><span class="number">~8,900+</span><span class="label">Total CMS Pages</span></div>
+  <div class="key-stat"><span class="number">19</span><span class="label">Page Templates</span></div>
+  <div class="key-stat"><span class="number">27</span><span class="label">Blocks/Components</span></div>
+  <div class="key-stat"><span class="number">17</span><span class="label">Integrations</span></div>
+</div>
+
+<div class="summary-box">
+  <strong>Current Platform:</strong> The main content site (stressless.com) runs on <strong>Episerver/Optimizely CMS (.NET)</strong>. The e-commerce shop (shop.stressless.com) runs on <strong>SAP Commerce Cloud (Hybris)</strong>. Both share a common header, footer, and navigation.
+</div>
+
+<div class="highlight-box">
+  <strong>Key Decision:</strong> shop.stressless.com (SAP Commerce Cloud) with its product configurator, pricing, and catalog functionality is <strong>out of scope</strong> for Edge Delivery Services migration. A cross-domain linking and shared navigation strategy is required.
+</div>
+
+<p><strong>Estimated migration effort:</strong> 198&ndash;279 person-days. With a 4-person team: 3&ndash;4 months. With a 6&ndash;8 person team: 2&ndash;3 months. The multi-locale rollout (31 locales) represents the largest effort driver at ~32% of total work.</p>
+
+<!-- SECTION 1: TEMPLATES -->
+<h1 id="templates" class="section-title">1. Templates Inventory</h1>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Template Name</th><th>Complexity</th><th>Reasoning</th><th>Reference URL(s)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Homepage</strong></td><td><span class="badge badge-high">High</span></td><td>Video hero, announcement bar carousel, multiple content blocks, interactive hotspot images, newsletter form, multiple carousels</td><td><code>/en</code></td></tr>
+    <tr><td>2</td><td><strong>Product Category Landing</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Hero banner, text intro with expand/collapse, product card grid, feature callout cards</td><td><code>/en/products/recliners</code><br><code>/en/products/sofas</code><br><code>/en/products/dining</code></td></tr>
+    <tr><td>3</td><td><strong>Product Detail (CMS)</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Full-width hero image, descriptive text with read-more toggle, image gallery, CTA buttons</td><td><code>/en/products/stresslessadam</code></td></tr>
+    <tr><td>4</td><td><strong>Product Detail + Configurator (Shop)</strong></td><td><span class="badge badge-high">High</span></td><td>Product image carousel, material/color/base configurator, specification accordion, cross-sell. SAP Commerce Cloud (Hybris). <strong>Out of scope.</strong></td><td><code>shop.stressless.com/en/recliners/stressless-adam/p/...</code></td></tr>
+    <tr><td>5</td><td><strong>Product Listing (Shop)</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Banner, text intro, product card grid with filter, inline promo cards. SAP Commerce. <strong>Out of scope.</strong></td><td><code>shop.stressless.com/en/c/recliners</code></td></tr>
+    <tr><td>6</td><td><strong>Inspiration / Style Landing</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Card carousel with image + text overlay, grid layout</td><td><code>/en/inspiration/styles</code><br><code>/en/inspiration/rooms</code></td></tr>
+    <tr><td>7</td><td><strong>Inspiration / Style Detail</strong></td><td><span class="badge badge-low">Low&ndash;Med</span></td><td>Full-width image hero, text content, product image gallery, related styles</td><td><code>/en/inspiration/styles/scandistyle</code></td></tr>
+    <tr><td>8</td><td><strong>Magazine / Article Listing</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Card grid with thumbnails, categories, pagination</td><td><code>/en/magazine</code></td></tr>
+    <tr><td>9</td><td><strong>About Us / Content Page</strong></td><td><span class="badge badge-low">Low</span></td><td>Image + text sections, alternating layout, expandable text</td><td><code>/en/aboutus/about-us</code><br><code>/en/aboutus/sustainability</code></td></tr>
+    <tr><td>10</td><td><strong>Service / Form Page</strong></td><td><span class="badge badge-medium">Med&ndash;High</span></td><td>Form fields, validation, API submissions (Marketo)</td><td><code>/en/services/requestasample</code><br><code>/en/services/warranty</code><br><code>/en/services/contact</code></td></tr>
+    <tr><td>11</td><td><strong>Dealer Locator</strong></td><td><span class="badge badge-high">High</span></td><td>Google Maps integration, search by location, dealer listings, state drill-down</td><td><code>/en/services/find-dealer</code></td></tr>
+    <tr><td>12</td><td><strong>Dealer Detail</strong></td><td><span class="badge badge-low">Low</span></td><td>Contact info, address, map, opening hours</td><td><code>/en/services/find-dealer/[name]</code></td></tr>
+    <tr><td>13</td><td><strong>Catalog / Digital Flipbook</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Embedded digital catalog viewer (third-party)</td><td><code>/en/services/catalog</code></td></tr>
+    <tr><td>14</td><td><strong>FAQ Page</strong></td><td><span class="badge badge-low">Low</span></td><td>Accordion/expandable Q&amp;A pairs</td><td><code>/en/terms-and-conditions/faq</code></td></tr>
+    <tr><td>15</td><td><strong>Legal / Terms Page</strong></td><td><span class="badge badge-low">Low</span></td><td>Static text content, headings, paragraphs</td><td><code>/en/terms-and-conditions/privacy-policy</code></td></tr>
+    <tr><td>16</td><td><strong>Promotions Landing</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Promotional banner, CTA blocks, terms, time-limited offers</td><td><code>/en/promotions</code></td></tr>
+    <tr><td>17</td><td><strong>Brand Store Page</strong></td><td><span class="badge badge-low">Low</span></td><td>Store info, images, map, contact details</td><td><code>/en/brandstore/[city]</code></td></tr>
+    <tr><td>18</td><td><strong>Assembly / How-to Page</strong></td><td><span class="badge badge-low">Low</span></td><td>Instructional content, embedded video</td><td><code>/en/services/assembly</code></td></tr>
+    <tr><td>19</td><td><strong>App Promotion Page</strong></td><td><span class="badge badge-low">Low</span></td><td>App screenshots, download links, AR feature description</td><td><code>/en/services/stresslessapp</code></td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 2: BLOCKS -->
+<h1 id="blocks" class="section-title">2. Blocks / Components Catalog</h1>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Block Name</th><th>Complexity</th><th>Description &amp; Behaviour</th><th>Reference URL(s)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Header / Navigation</strong></td><td><span class="badge badge-high">High</span></td><td>Sticky header with logo, hamburger menu, search icon, dealer locator icon, catalog icon. Mega-menu with Products, Inspiration, About Us, Services. Shared between stressless.com and shop.stressless.com.</td><td>All pages</td></tr>
+    <tr><td>2</td><td><strong>Announcement Bar / Ticker</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Auto-rotating carousel of promotional messages with links (4 slides). Dismissible with close button.</td><td>Homepage</td></tr>
+    <tr><td>3</td><td><strong>Video Hero</strong></td><td><span class="badge badge-high">High</span></td><td>Full-width background video with overlay text (H1), CTA button, play/pause toggle. Autoplay with fallback image for mobile.</td><td>Homepage</td></tr>
+    <tr><td>4</td><td><strong>Image Hero (Full-width)</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Full-width background image with overlay heading, subtext, CTA button. Variant with parallax scroll effect.</td><td>Product categories, About Us</td></tr>
+    <tr><td>5</td><td><strong>Content Block (Image + Text)</strong></td><td><span class="badge badge-low">Low</span></td><td>Split layout with image and text (subtitle, heading, paragraph, CTA). <strong>3 design variants:</strong> image-left, image-right, stacked. Same content model, CSS-only variation. Expandable "show more" text.</td><td>Homepage (multiple instances)</td></tr>
+    <tr><td>6</td><td><strong>Product Category Carousel</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Horizontal scrollable carousel of category cards (image + title + subtitle). Previous/Next navigation buttons. 5 items.</td><td>Homepage</td></tr>
+    <tr><td>7</td><td><strong>Inspiration Card Carousel</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Horizontal scrollable cards with image, heading, description, CTA link. <strong>Design variation of carousel block (#6).</strong></td><td>Homepage</td></tr>
+    <tr><td>8</td><td><strong>Hotspot / Interactive Image</strong></td><td><span class="badge badge-high">High</span></td><td>Large image with numbered clickable hotspots (1, 2, 3). Each hotspot reveals a linked heading. Tabs/pagination to switch hotspot sets.</td><td>Homepage</td></tr>
+    <tr><td>9</td><td><strong>Find a Store CTA Block</strong></td><td><span class="badge badge-low">Low</span></td><td>Centered text block: heading, description, CTA button on colored background.</td><td>Homepage</td></tr>
+    <tr><td>10</td><td><strong>Newsletter Signup Form</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Multi-field form: email, salutation dropdown, first/last name, consent checkbox, submit. Integrates with Marketo.</td><td>Homepage footer area</td></tr>
+    <tr><td>11</td><td><strong>Footer</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Multi-column navigation (5 columns), logo, social media links (Facebook, Instagram), copyright.</td><td>All pages</td></tr>
+    <tr><td>12</td><td><strong>Breadcrumb</strong></td><td><span class="badge badge-low">Low</span></td><td>Simple breadcrumb trail: Home > Section > Page</td><td>All pages</td></tr>
+    <tr><td>13</td><td><strong>Product Card Grid</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Grid of product cards (image + title + options tag). Filter button. Count display. Inline promo cards interspersed.</td><td>Shop category pages</td></tr>
+    <tr><td>14</td><td><strong>Product Configurator</strong></td><td><span class="badge badge-high">High</span></td><td>Material (Leather/Fabric), Color, Arm color, Base color selectors with visual swatches. Dynamic image updates. SAP Commerce. <strong>Out of scope for EDS.</strong></td><td>Shop product detail pages</td></tr>
+    <tr><td>15</td><td><strong>Product Info Accordion</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Expandable sections: Description, Functions, Material &amp; Color, Base, Specifications.</td><td>Shop product detail pages</td></tr>
+    <tr><td>16</td><td><strong>Accessories Cross-sell</strong></td><td><span class="badge badge-low">Low</span></td><td>Horizontal row of related accessory product cards with images and names.</td><td>Shop product detail pages</td></tr>
+    <tr><td>17</td><td><strong>Promotional Banner</strong></td><td><span class="badge badge-low">Low</span></td><td>Full-width image banner. Variant: sticky sidebar promo widget.</td><td>Shop pages</td></tr>
+    <tr><td>18</td><td><strong>Recliner Finder Widget</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Sticky sidebar widget "Which Stressless Recliner is right for you?" with brand badge.</td><td>Shop recliner pages</td></tr>
+    <tr><td>19</td><td><strong>Expandable Text Block</strong></td><td><span class="badge badge-low">Low</span></td><td>Paragraph text with "show"/"Read more" toggle to expand truncated content.</td><td>Homepage, product pages</td></tr>
+    <tr><td>20</td><td><strong>Cookie Consent Banner</strong></td><td><span class="badge badge-medium">Medium</span></td><td>OneTrust-powered cookie banner: "Accept Cookies" and "Do Not Sell My Personal Information" buttons.</td><td>All pages</td></tr>
+    <tr><td>21</td><td><strong>FatWin Popup/Modal</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Third-party overlay modal from fatwin.com for new customer engagement. Timing-triggered.</td><td>Homepage (first visit)</td></tr>
+    <tr><td>22</td><td><strong>Search Overlay</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Search functionality triggered from header icon with overlay results.</td><td>All pages</td></tr>
+    <tr><td>23</td><td><strong>Dealer Locator Map</strong></td><td><span class="badge badge-high">High</span></td><td>Google Maps embed with store pins, search-by-location, filtering, state-level drill-down.</td><td><code>/en/services/find-dealer</code></td></tr>
+    <tr><td>24</td><td><strong>Form Block</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Multi-field forms (contact, warranty, sample request) with validation, dropdowns, Marketo integration.</td><td>Service pages</td></tr>
+    <tr><td>25</td><td><strong>FAQ Accordion</strong></td><td><span class="badge badge-low">Low</span></td><td>Expandable question-answer pairs with toggle animation.</td><td><code>/en/terms-and-conditions/faq</code></td></tr>
+    <tr><td>26</td><td><strong>Social Media Links</strong></td><td><span class="badge badge-low">Low</span></td><td>Icon links to Facebook and Instagram.</td><td>Footer</td></tr>
+    <tr><td>27</td><td><strong>Digital Catalog Embed</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Embedded interactive digital catalog/flipbook viewer (third-party).</td><td><code>/en/services/catalog</code></td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 3: PAGE COUNTS -->
+<h1 id="pages" class="section-title">3. Page Counts by Template</h1>
+
+<h2>English Locale (/en) &mdash; ~681 URLs from Sitemap</h2>
+<table>
+  <thead>
+    <tr><th>Template</th><th>Pages (EN)</th><th>Est. Total (31 Locales)</th><th>Auto-Migratable</th><th>Manual Migration</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Homepage</td><td>1</td><td>31</td><td>0</td><td>31</td><td>Complex layout, dynamic content per locale</td></tr>
+    <tr><td>Product Category Landing</td><td>~7</td><td>~217</td><td>~155</td><td>~62</td><td>Recliners, Sofas, Dining, HomeOffice, Sleep, Accessories, Functions</td></tr>
+    <tr><td>Product Detail (CMS)</td><td>~64</td><td>~1,984</td><td>~1,400</td><td>~584</td><td>Individual product pages</td></tr>
+    <tr><td>Product Detail + Configurator</td><td>~50+</td><td>~1,550+</td><td colspan="2" style="text-align:center;"><em>Out of scope (SAP Commerce)</em></td><td>Hybris e-commerce</td></tr>
+    <tr><td>Product Listing (Shop)</td><td>~10</td><td>~310</td><td colspan="2" style="text-align:center;"><em>Out of scope (SAP Commerce)</em></td><td>Hybris e-commerce</td></tr>
+    <tr><td>Inspiration Landing</td><td>~3</td><td>~93</td><td>~65</td><td>~28</td><td>Styles, Rooms, Materials</td></tr>
+    <tr><td>Inspiration Detail</td><td>~38</td><td>~1,178</td><td>~940</td><td>~238</td><td>Individual style/room/material pages</td></tr>
+    <tr><td>Magazine / Article</td><td>~10+</td><td>~310+</td><td>~220</td><td>~90</td><td>Blog/article content</td></tr>
+    <tr><td>About Us / Content Page</td><td>~11</td><td>~341</td><td>~270</td><td>~71</td><td>About, History, Sustainability, etc.</td></tr>
+    <tr><td>Service / Form Page</td><td>~8</td><td>~248</td><td>~50</td><td>~198</td><td>Forms require Marketo re-integration</td></tr>
+    <tr><td>Dealer Locator</td><td>~1</td><td>~31</td><td>0</td><td>~31</td><td>Google Maps integration</td></tr>
+    <tr><td>Dealer Detail Pages</td><td>~380</td><td>~2,000+</td><td>~1,600</td><td>~400</td><td>US state pages + individual dealers</td></tr>
+    <tr><td>Dealer Overview (Sky)</td><td>~51</td><td>~51</td><td>~40</td><td>~11</td><td>State-level dealer overview</td></tr>
+    <tr><td>Brand Store Pages</td><td>~8</td><td>~8</td><td>~6</td><td>~2</td><td></td></tr>
+    <tr><td>Promotions</td><td>~10+</td><td>~310+</td><td>~200</td><td>~110</td><td>Time-limited, locale-specific</td></tr>
+    <tr><td>Legal / Terms / FAQ</td><td>~7</td><td>~217</td><td>~170</td><td>~47</td><td>Static content</td></tr>
+    <tr><td>Catalog / Flipbook</td><td>~1</td><td>~31</td><td>0</td><td>~31</td><td>Third-party embed</td></tr>
+    <tr><td>App / Assembly</td><td>~3</td><td>~93</td><td>~65</td><td>~28</td><td></td></tr>
+    <tr><td>Dev/Test/Microsite</td><td>~18</td><td>~18</td><td colspan="2" style="text-align:center;"><em>Exclude from migration</em></td><td></td></tr>
+    <tr class="total-row"><td><strong>TOTAL (CMS, excl. shop)</strong></td><td><strong>~681</strong></td><td><strong>~8,900+</strong></td><td><strong>~5,100 (57%)</strong></td><td><strong>~3,800 (43%)</strong></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="summary-box">
+  <strong>Sitemap Breakdown:</strong> English locale: ~681 URLs | German locale (de-DE): ~219 URLs | Average per locale: ~220&ndash;400 URLs. Smaller locales may have 30&ndash;50% fewer pages than English. shop.stressless.com adds ~1,860+ product/listing pages across locales (out of scope for EDS).
+</div>
+
+<!-- SECTION 4: LOCALES -->
+<h1 id="locales" class="section-title">4. Country / Language Variants</h1>
+
+<p>The site supports <strong>31 country/language variants</strong>, each with its own sitemap, content, dealer networks, and locale-specific promotions.</p>
+
+<table>
+  <thead>
+    <tr><th>Region</th><th>Locale</th><th>Sitemap URL</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Global / US (English)</td><td>en</td><td><code>stressless.com/en/</code></td></tr>
+    <tr><td>United Kingdom</td><td>en-GB</td><td><code>stressless.com/en-GB/</code></td></tr>
+    <tr><td>Australia</td><td>en-AU</td><td><code>stressless.com/en-AU/</code></td></tr>
+    <tr><td>New Zealand</td><td>en-NZ</td><td><code>stressless.com/en-NZ/</code></td></tr>
+    <tr><td>Canada (EN)</td><td>en-CA</td><td><code>stressless.com/en-CA/</code></td></tr>
+    <tr><td>Canada (FR)</td><td>fr-CA</td><td><code>stressless.com/fr-CA/</code></td></tr>
+    <tr><td>Ireland</td><td>en-IE</td><td><code>stressless.com/en-IE/</code></td></tr>
+    <tr><td>Singapore</td><td>en-SG</td><td><code>stressless.com/en-SG/</code></td></tr>
+    <tr><td>Hong Kong (EN)</td><td>en-HK</td><td><code>stressless.com/en-HK/</code></td></tr>
+    <tr><td>Trinidad &amp; Tobago</td><td>en-TT</td><td><code>stressless.com/en-TT/</code></td></tr>
+    <tr><td>Germany</td><td>de-DE</td><td><code>stressless.com/de-DE/</code></td></tr>
+    <tr><td>Austria</td><td>de-AT</td><td><code>stressless.com/de-AT/</code></td></tr>
+    <tr><td>Switzerland (DE)</td><td>de-CH</td><td><code>stressless.com/de-CH/</code></td></tr>
+    <tr><td>Switzerland (FR)</td><td>fr-CH</td><td><code>stressless.com/fr-CH/</code></td></tr>
+    <tr><td>France</td><td>fr-FR</td><td><code>stressless.com/fr-FR/</code></td></tr>
+    <tr><td>Belgium (FR)</td><td>fr-BE</td><td><code>stressless.com/fr-BE/</code></td></tr>
+    <tr><td>Belgium (NL)</td><td>nl-BE</td><td><code>stressless.com/nl-BE/</code></td></tr>
+    <tr><td>Netherlands</td><td>nl-NL</td><td><code>stressless.com/nl-NL/</code></td></tr>
+    <tr><td>Norway</td><td>nb-NO</td><td><code>stressless.com/nb-NO/</code></td></tr>
+    <tr><td>Sweden</td><td>sv-SE</td><td><code>stressless.com/sv-SE/</code></td></tr>
+    <tr><td>Denmark</td><td>da</td><td><code>stressless.com/da/</code></td></tr>
+    <tr><td>Finland</td><td>fi-FI</td><td><code>stressless.com/fi-FI/</code></td></tr>
+    <tr><td>Spain</td><td>es-ES</td><td><code>stressless.com/es-ES/</code></td></tr>
+    <tr><td>Mexico</td><td>es-MX</td><td><code>stressless.com/es-MX/</code></td></tr>
+    <tr><td>Italy</td><td>it-IT</td><td><code>stressless.com/it-IT/</code></td></tr>
+    <tr><td>Brazil</td><td>pt-BR</td><td><code>stressless.com/pt-BR/</code></td></tr>
+    <tr><td>Japan</td><td>ja-JP</td><td><code>stressless.com/ja-JP/</code></td></tr>
+    <tr><td>South Korea</td><td>ko-KR</td><td><code>stressless.com/ko-KR/</code></td></tr>
+    <tr><td>Taiwan</td><td>zh-TW</td><td><code>stressless.com/zh-TW/</code></td></tr>
+    <tr><td>Turkey</td><td>tr-TR</td><td><code>stressless.com/tr-TR/</code></td></tr>
+    <tr><td>Thailand</td><td>th-TH</td><td><code>stressless.com/th-TH/</code></td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 5: INTEGRATIONS -->
+<h1 id="integrations" class="section-title">5. Integrations Analysis</h1>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Integration</th><th>Type</th><th>Complexity</th><th>Description</th><th>Where Used</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Adobe Analytics</strong></td><td>Analytics</td><td><span class="badge badge-high">High</span></td><td>Full Adobe Analytics via Adobe Launch (<code>assets.adobedtm.com</code>). AppMeasurement + Activity Map module. Custom data layer.</td><td>All pages</td></tr>
+    <tr><td>2</td><td><strong>Adobe Target</strong></td><td>A/B Testing</td><td><span class="badge badge-high">High</span></td><td>Personalization and A/B testing. Active experiments detected via console warnings.</td><td>All pages</td></tr>
+    <tr><td>3</td><td><strong>Google Analytics (UA+GA4)</strong></td><td>Analytics</td><td><span class="badge badge-medium">Medium</span></td><td>Multiple GA properties: UA-131447795-2, G-Z0TVK7B40H, G-9YG0SMF6Q4.</td><td>Shop pages</td></tr>
+    <tr><td>4</td><td><strong>Google Tag Manager</strong></td><td>Tag Mgmt</td><td><span class="badge badge-medium">Medium</span></td><td>Two GTM containers: GTM-57SHKK4, GTM-KBJK8DF.</td><td>All pages</td></tr>
+    <tr><td>5</td><td><strong>Google Ads</strong></td><td>Ad Tracking</td><td><span class="badge badge-low">Low</span></td><td>Conversion tracking via doubleclick.net (AW-980375057, AW-767523461).</td><td>Shop pages</td></tr>
+    <tr><td>6</td><td><strong>Meta / Facebook Pixel</strong></td><td>Ad Tracking</td><td><span class="badge badge-medium">Medium</span></td><td>3 Facebook Pixel IDs detected. Duplicate pixel warnings in console.</td><td>All pages</td></tr>
+    <tr><td>7</td><td><strong>The Trade Desk</strong></td><td>Ad Tracking</td><td><span class="badge badge-low">Low</span></td><td>Programmatic advertising pixel (<code>js.adsrvr.org</code>).</td><td>All pages</td></tr>
+    <tr><td>8</td><td><strong>OneTrust / CookiePro</strong></td><td>Cookie Consent</td><td><span class="badge badge-medium">Medium</span></td><td>GDPR/CCPA cookie consent. "Accept" and "Do Not Sell" options.</td><td>All pages</td></tr>
+    <tr><td>9</td><td><strong>Marketo</strong></td><td>Marketing Auto.</td><td><span class="badge badge-high">High</span></td><td><code>munchkin.marketo.net</code> tracking + <code>lp.stressless.com</code> forms. Powers newsletter, samples, warranty, contact.</td><td>Homepage, form pages</td></tr>
+    <tr><td>10</td><td><strong>FatWin</strong></td><td>Engagement</td><td><span class="badge badge-medium">Medium</span></td><td><code>stresslessen.fatwin.com</code> &mdash; Norwegian marketing platform. Popups, modals, engagement overlays.</td><td>All pages</td></tr>
+    <tr><td>11</td><td><strong>SAP Commerce Cloud</strong></td><td>E-commerce</td><td><span class="badge badge-high">High</span></td><td>Powers <code>shop.stressless.com</code>. Product catalog, configurator, filtering. CDN: CloudFront.</td><td>Shop subdomain</td></tr>
+    <tr><td>12</td><td><strong>Google Maps</strong></td><td>Maps</td><td><span class="badge badge-medium">Medium</span></td><td>Interactive store/dealer locator with geolocation and search.</td><td>Find dealer page</td></tr>
+    <tr><td>13</td><td><strong>jQuery 3.7.1</strong></td><td>Library</td><td><span class="badge badge-low">Low</span></td><td>Loaded from Google CDN. Used across the site.</td><td>All pages</td></tr>
+    <tr><td>14</td><td><strong>Digital Catalog Viewer</strong></td><td>Embed</td><td><span class="badge badge-medium">Medium</span></td><td>Interactive catalog flipbook embed.</td><td>Catalog page</td></tr>
+    <tr><td>15</td><td><strong>Social Media</strong></td><td>Links</td><td><span class="badge badge-low">Low</span></td><td>Facebook and Instagram links in footer.</td><td>All pages</td></tr>
+    <tr><td>16</td><td><strong>Stressless@Home App</strong></td><td>External App</td><td><span class="badge badge-low">Low</span></td><td>AR furniture app. Links to App Store / Google Play.</td><td>App promo page</td></tr>
+    <tr><td>17</td><td><strong>CloudFront CDN</strong></td><td>Infrastructure</td><td><span class="badge badge-low">Low</span></td><td><code>d3kpm8kazby4td.cloudfront.net</code> for shop product images.</td><td>Shop pages</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 6: COMPLEX USE CASES -->
+<h1 id="complex" class="section-title">6. Complex Use Cases &amp; Observations</h1>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Use Case</th><th>Complexity</th><th>Description</th><th>Instances</th><th>Why It's Complex</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Product Configurator (Hybris)</strong></td><td><span class="badge badge-vhigh">Very High</span></td><td>Real-time product image rendering based on material/color/base selections. Dynamic pricing. Deep SAP Commerce integration.</td><td>~50+ pages</td><td>Cannot be migrated to EDS. Requires integration/linking strategy.</td></tr>
+    <tr><td>2</td><td><strong>Multi-locale Architecture</strong></td><td><span class="badge badge-high">High</span></td><td>31 country/language variants with locale-specific content, promotions, dealer networks, pricing.</td><td>Entire site</td><td>Each locale has unique content requiring separate management. Varying page counts (219&ndash;681 per locale).</td></tr>
+    <tr><td>3</td><td><strong>Dealer Locator + Maps</strong></td><td><span class="badge badge-high">High</span></td><td>Interactive Google Maps with geolocation, dealer search, state-level drill-down. ~380 individual dealer pages in US.</td><td>~430+ pages</td><td>Different dealer networks per locale. May benefit from API-driven generation.</td></tr>
+    <tr><td>4</td><td><strong>Dual CMS + E-commerce</strong></td><td><span class="badge badge-high">High</span></td><td>Content on Episerver/Optimizely (.NET). Shop on SAP Commerce Cloud. Shared header/footer/navigation.</td><td>Entire site</td><td>Seamless cross-domain navigation between EDS and Hybris required.</td></tr>
+    <tr><td>5</td><td><strong>Marketo Form Integration</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Forms submit to Marketo with field validation, consent management, CRM sync. Newsletter on every page.</td><td>~5&ndash;8 form pages/locale</td><td>API integration and form handling need re-implementation.</td></tr>
+    <tr><td>6</td><td><strong>FatWin Engagement Overlays</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Third-party popup system. Multiple plugin instances. Modal overlays can block cookie consent.</td><td>All pages</td><td>Timing-based triggers, interaction blocking behavior.</td></tr>
+    <tr><td>7</td><td><strong>Adobe Target Personalization</strong></td><td><span class="badge badge-medium">Medium</span></td><td>A/B testing and personalization experiments active. Content may vary by segment.</td><td>All pages</td><td>Migration must preserve or replace experimentation capability.</td></tr>
+    <tr><td>8</td><td><strong>Interactive Hotspot Images</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Numbered clickable hotspots with linked descriptions, tabs/pagination.</td><td>~2&ndash;4 instances</td><td>Custom interactive component requiring JS development.</td></tr>
+    <tr><td>9</td><td><strong>Video Hero with Autoplay</strong></td><td><span class="badge badge-medium">Medium</span></td><td>HTML5 video background, autoplay, pause/play, mobile fallback.</td><td>~3&ndash;5 pages</td><td>Video hosting/CDN integration and mobile performance.</td></tr>
+    <tr><td>10</td><td><strong>Locale-specific Promotions</strong></td><td><span class="badge badge-medium">Medium</span></td><td>Time-limited promotional content varying by country.</td><td>~10+ per locale</td><td>Content governance and scheduling.</td></tr>
+    <tr><td>11</td><td><strong>SEO &amp; Structured Data</strong></td><td><span class="badge badge-medium">Medium</span></td><td>hreflang tags for 31 locales, Open Graph, Twitter Cards.</td><td>All pages</td><td>Metadata strategy for EDS required.</td></tr>
+    <tr><td>12</td><td><strong>Announcement Bar Carousel</strong></td><td><span class="badge badge-low">Low&ndash;Med</span></td><td>Auto-rotating promotional messages, locale-specific, dismissible.</td><td>1 (site-wide)</td><td>Locale-specific content management.</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 7: MIGRATION ESTIMATES -->
+<h1 id="estimates" class="section-title">7. Migration Estimates</h1>
+
+<div class="summary-box">
+  <strong>Scope:</strong> stressless.com CMS content (Episerver/Optimizely) &rarr; Edge Delivery Services.<br>
+  <strong>Out of scope:</strong> shop.stressless.com (SAP Commerce Cloud) &mdash; requires separate e-commerce strategy.<br>
+  <strong>Approach:</strong> Migrate English (EN) as reference, then replicate for 30 additional locales.
+</div>
+
+<h2>Effort Breakdown by Phase</h2>
+<table>
+  <thead>
+    <tr><th>Phase</th><th>Scope</th><th>Person-Days</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="4" style="background:#e8edf5;font-weight:700;">Phase 1: Foundation</td></tr>
+    <tr><td>Design system extraction</td><td>Global styles, tokens, typography, colors</td><td>5&ndash;7</td><td>CSS custom properties, brand fonts</td></tr>
+    <tr><td>Navigation setup</td><td>Header mega-nav, footer, mobile menu</td><td>8&ndash;10</td><td>Complex mega-nav shared with shop</td></tr>
+    <tr><td>Global components</td><td>Breadcrumbs, cookie consent, social links</td><td>3&ndash;4</td><td>OneTrust re-integration</td></tr>
+    <tr><td>Announcement bar</td><td>Rotating promotional ticker</td><td>2&ndash;3</td><td>Locale-specific content</td></tr>
+    <tr><td colspan="4" style="background:#e8edf5;font-weight:700;">Phase 2: Block Development (27 blocks)</td></tr>
+    <tr><td>Video Hero</td><td>Full-width video + overlay + CTA</td><td>4&ndash;5</td><td>Autoplay, mobile fallback</td></tr>
+    <tr><td>Image Hero</td><td>Full-width image + overlay (+ parallax)</td><td>3&ndash;4</td><td></td></tr>
+    <tr><td>Content Block (3 variants)</td><td>Image+Text Left/Right/Stacked</td><td>5&ndash;7</td><td>Single block with CSS variants</td></tr>
+    <tr><td>Carousels (2 variants)</td><td>Product category + Inspiration cards</td><td>6&ndash;8</td><td>Shared carousel mechanism</td></tr>
+    <tr><td>Interactive Hotspot Image</td><td>Numbered hotspots with tabs</td><td>5&ndash;7</td><td>Custom JS</td></tr>
+    <tr><td>Newsletter Form</td><td>Multi-field form + Marketo</td><td>4&ndash;5</td><td>API integration</td></tr>
+    <tr><td>Product Card Grid</td><td>Grid + filter + inline promos</td><td>4&ndash;5</td><td></td></tr>
+    <tr><td>Dealer Locator (map)</td><td>Google Maps + search</td><td>6&ndash;8</td><td>Complex integration</td></tr>
+    <tr><td>Forms (Contact/Warranty/Sample)</td><td>Multi-field + Marketo</td><td>5&ndash;7</td><td>Multiple form variants</td></tr>
+    <tr><td>Remaining blocks (~8)</td><td>FAQ accordion, expandable text, CTA, promo banners, search, etc.</td><td>7&ndash;9</td><td></td></tr>
+    <tr><td colspan="4" style="background:#e8edf5;font-weight:700;">Phase 3: Template Migration (EN)</td></tr>
+    <tr><td>Template mapping &amp; scripting</td><td>Build import scripts per template</td><td>10&ndash;15</td><td>19 templates</td></tr>
+    <tr><td>Auto-migration (EN)</td><td>~400 auto-migratable pages</td><td>5&ndash;7</td><td>Batch processing</td></tr>
+    <tr><td>Manual migration (EN)</td><td>~280 pages requiring manual work</td><td>10&ndash;13</td><td>Complex pages, forms, dealers</td></tr>
+    <tr><td colspan="4" style="background:#e8edf5;font-weight:700;">Phase 4: Multi-locale Rollout (30 locales)</td></tr>
+    <tr><td>Locale content migration</td><td>30 locales &times; ~220 unique pages avg.</td><td>40&ndash;60</td><td>Mix of auto + manual</td></tr>
+    <tr><td>Locale-specific customization</td><td>Promotions, dealers, legal pages</td><td>15&ndash;20</td><td>Per-locale content</td></tr>
+    <tr><td>Locale QA</td><td>Verify each locale</td><td>5&ndash;10</td><td></td></tr>
+    <tr><td colspan="4" style="background:#e8edf5;font-weight:700;">Phase 5: Integrations</td></tr>
+    <tr><td>Adobe Analytics</td><td>Data layer, event tracking</td><td>5&ndash;7</td><td></td></tr>
+    <tr><td>Adobe Target</td><td>Personalization / A/B testing</td><td>4&ndash;5</td><td></td></tr>
+    <tr><td>Marketo</td><td>Newsletter + service forms</td><td>4&ndash;5</td><td></td></tr>
+    <tr><td>Third-party (FatWin, Maps, etc.)</td><td>Engagement + shop linking</td><td>7&ndash;11</td><td></td></tr>
+    <tr><td colspan="4" style="background:#e8edf5;font-weight:700;">Phase 6: QA &amp; Testing</td></tr>
+    <tr><td>Visual regression</td><td>All templates + key pages/locale</td><td>8&ndash;10</td><td></td></tr>
+    <tr><td>Functional testing</td><td>Forms, maps, video, carousels</td><td>5&ndash;7</td><td></td></tr>
+    <tr><td>Cross-browser / device</td><td>Desktop, tablet, mobile</td><td>5&ndash;7</td><td></td></tr>
+    <tr><td>Performance &amp; accessibility</td><td>Lighthouse, WCAG</td><td>3&ndash;5</td><td></td></tr>
+    <tr><td>UAT &amp; bug fixes</td><td>Stakeholder review cycles</td><td>9&ndash;13</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2>Summary Totals</h2>
+<table>
+  <thead>
+    <tr><th>Category</th><th>Est. Person-Days</th><th>% of Total</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Foundation &amp; Design System</td><td>18&ndash;24</td><td>9%</td></tr>
+    <tr><td>Block Development</td><td>45&ndash;60</td><td>23%</td></tr>
+    <tr><td>Template Migration (EN)</td><td>25&ndash;35</td><td>14%</td></tr>
+    <tr><td>Multi-locale Rollout</td><td>60&ndash;90</td><td>32%</td></tr>
+    <tr><td>Integrations</td><td>20&ndash;28</td><td>11%</td></tr>
+    <tr><td>QA &amp; Testing</td><td>30&ndash;42</td><td>16%</td></tr>
+    <tr class="total-row"><td><strong>TOTAL</strong></td><td><strong>198&ndash;279 person-days</strong></td><td><strong>100%</strong></td></tr>
+  </tbody>
+</table>
+
+<h2>Key Assumptions &amp; Risks</h2>
+<table>
+  <thead>
+    <tr><th>Factor</th><th>Detail</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Largest effort driver</strong></td><td>Multi-locale rollout (31 locales) accounts for ~32% of total effort</td></tr>
+    <tr><td><strong>Highest risk</strong></td><td>Shared navigation between stressless.com (EDS) and shop.stressless.com (Hybris) &mdash; must maintain seamless UX</td></tr>
+    <tr><td><strong>Out of scope</strong></td><td>SAP Commerce Cloud (shop.stressless.com) &mdash; product configurator, pricing, checkout</td></tr>
+    <tr><td><strong>Dealer pages</strong></td><td>~430+ pages in EN &mdash; recommend API-driven auto-generation from dealer database</td></tr>
+    <tr><td><strong>Content freeze</strong></td><td>Assumes content freeze period; 31 locales adds coordination complexity</td></tr>
+    <tr><td><strong>Team size: 4-person</strong></td><td>Calendar duration: 3&ndash;4 months</td></tr>
+    <tr><td><strong>Team size: 6&ndash;8 person</strong></td><td>Calendar duration: 2&ndash;3 months</td></tr>
+    <tr><td><strong>Auto-migration rate</strong></td><td>~57% of CMS pages (content, inspiration, legal, about us)</td></tr>
+    <tr><td><strong>Current CMS</strong></td><td>Episerver/Optimizely CMS (.NET) &mdash; identified via URL patterns and media paths</td></tr>
+  </tbody>
+</table>
+
+<!-- SECTION 8: SCREENSHOTS -->
+<h1 id="screenshots" class="section-title">8. Screenshots Reference</h1>
+
+<div class="screenshot-grid">
+  <div class="screenshot-item">
+    <img src="stressless-homepage-hero.jpeg" alt="Homepage Hero">
+    <div class="caption">Homepage &mdash; Video Hero with "The Award Winner" CTA</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-recliner-banner.jpeg" alt="Recliner Banner">
+    <div class="caption">Homepage &mdash; Recliner Lifestyle Banner</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-product-carousel.jpeg" alt="Product Carousel">
+    <div class="caption">Homepage &mdash; "Our Recliner Collection" Text + CTA</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-category-cards.jpeg" alt="Category Cards">
+    <div class="caption">Homepage &mdash; "Dine in Comfort" Hotspot Image</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-hotspot-image.jpeg" alt="Hotspot Image">
+    <div class="caption">Homepage &mdash; Find a Store CTA Block</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-split-content.jpeg" alt="Split Content">
+    <div class="caption">Homepage &mdash; "Innovation" Split Content Block</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-dining-section.jpeg" alt="Dining Section">
+    <div class="caption">Homepage &mdash; Dining Image + Text Block</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-sustainability.jpeg" alt="Sustainability">
+    <div class="caption">Homepage &mdash; Sustainability Content Block</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-inspiration-carousel.jpeg" alt="Inspiration Carousel">
+    <div class="caption">Homepage &mdash; Inspiration Card Carousel</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-homepage-newsletter-footer.jpeg" alt="Footer">
+    <div class="caption">Homepage &mdash; Footer Navigation</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-shop-product-listing.jpeg" alt="Shop Listing">
+    <div class="caption">Shop &mdash; Recliner Product Listing (Hybris)</div>
+  </div>
+  <div class="screenshot-item">
+    <img src="stressless-shop-configurator.jpeg" alt="Product Configurator">
+    <div class="caption">Shop &mdash; Product Configurator (Adam Recliner)</div>
+  </div>
+</div>
+
+<div class="footnote">
+  <p>This report was generated as part of an Edge Delivery Services migration assessment for stressless.com. All page counts are estimates based on sitemap analysis conducted in February 2026. Actual counts may vary. Screenshots are point-in-time captures. shop.stressless.com (SAP Commerce Cloud) is analyzed for integration purposes but is out of scope for EDS content migration.</p>
+</div>
+
+</body>
+</html>
